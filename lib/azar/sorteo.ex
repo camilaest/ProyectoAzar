@@ -1,4 +1,4 @@
-defmodule AzarSorteo do
+defmodule Azar.Sorteo do
   @moduledoc """
   Define la estructura de datos para un sorteo de Azar S.A.
   """
