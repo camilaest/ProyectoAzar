@@ -1,1 +1,0 @@
-{application,proyecto_azar,[{modules,['Elixir.Azar.Sorteo','Elixir.Util']},{optional_applications,[]},{applications,[kernel,stdlib,elixir,jason]},{description,"proyecto_azar"},{registered,[]},{vsn,"0.1.0"}]}.
