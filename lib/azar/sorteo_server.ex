@@ -5,7 +5,7 @@ defmodule Azar.SorteoServer do
 
   # --- Interfaz (Lo que llaman los clientes) ---
 
-  def start_link(%Sorteo{} = datos) do
+  def start_link(%Azar.Sorteo{} = datos) do
     # Iniciamos el proceso dándole un nombre único basado en su ID [cite: 18]
     GenServer.start_link(__MODULE__, datos, name: {:global, datos.id})
   end

@@ -14,6 +14,6 @@ defmodule Azar.Logger do
 
     # REQUISITO 2: Guardar en archivo de texto (bitácora/log)
     # Usamos [:append] para que no borre lo anterior, sino que escriba abajo.
-    File.write("bitacora.txt", linea <> "\n", [:append])
+    File.write("lib/bitacora.txt", linea <> "\n", [:append])
   end
 end

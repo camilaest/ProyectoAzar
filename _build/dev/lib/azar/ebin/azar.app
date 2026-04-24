@@ -1,0 +1,1 @@
+{application,azar,[{modules,['Elixir.Azar.Logger','Elixir.Azar.Sorteo','Elixir.Azar.SorteoServer','Elixir.Jason.Encoder.Azar.Sorteo']},{optional_applications,[]},{applications,[kernel,stdlib,elixir,logger,jason]},{description,"azar"},{registered,[]},{vsn,"0.1.0"}]}.
