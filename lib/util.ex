@@ -1,4 +1,4 @@
-defmodule Util do
+defmodule Azar.Util do
   @moduledoc """
   Módulo con funciones que se reutilizan
   - fecha: Febrero del 2026
