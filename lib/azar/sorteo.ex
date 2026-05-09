@@ -15,4 +15,27 @@ defmodule Azar.Sorteo do
     billetes: %{},            # Mapa para rastrear quién compró qué número
     estado: :pendiente        # :pendiente, :realizado o :cancelado [cite: 35]
   ]
+
+  @premios ["1er puesto", "2do puesto", "3er puesto"]
+
+  @doc """
+  Recibe una lista de jugadores limpia y retorna los ganadores con su premio.
+  Si hay menos jugadores que premios, asigna un premio por jugador disponible.
+  """
+  def sortear(jugadores) when is_list(jugadores) do
+    jugadores
+    |> Enum.shuffle()
+    |> Enum.take(min(length(jugadores), length(@premios)))
+    |> Enum.with_index()
+    |> Enum.map(fn {jugador, indice} ->
+      %{
+        nombre: obtener_nombre(jugador),
+        premio: Enum.at(@premios, indice)
+      }
+    end)
+  end
+
+  defp obtener_nombre(%{nombre: nombre}) when is_binary(nombre), do: nombre
+  defp obtener_nombre(nombre) when is_binary(nombre), do: nombre
+  defp obtener_nombre(_), do: "Desconocido"
 end
