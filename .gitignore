@@ -37,3 +37,5 @@ erl_crash.dump
 .DS_Store
 Thumbs.db
 >>>>>>> 6a006fccce53161f8d6227b1d0e38b9b642b085d
+apuestas.json
+billetes/
