@@ -1,0 +1,12 @@
+{
+  "jugador1": [
+    {
+      "mensaje": "Nuevo sorteo creado: %{id: 1, nombre: \"Prueba\"}",
+      "fecha": "2026-05-12T14:51:43.496000-05:00"
+    },
+    {
+      "fecha": "2026-05-12T19:45:40.683000Z",
+      "mensaje": "Nuevo sorteo creado: %{id: 1, nombre: \"Prueba\"}"
+    }
+  ]
+}

@@ -3,82 +3,39 @@ defmodule Azar.Sorteo do
   Define la estructura de datos y la lógica de negocio para los sorteos de Azar S.A.
   """
 
-  # Configuración para la persistencia en archivos JSON
-  @derive {Jason.Encoder,
-           only: [
-             :id,
-             :nombre,
-             :fecha,
-             :precio_billete,
-             :fracciones_totales,
-             :cantidad_billetes,
-             :premios,
-             :billetes,
-             :estado,
-             :ganadores,
-             :ingresos_totales
-           ]}
+  @derive {Jason.Encoder, only: [:id, :nombre, :fecha, :precio_billete, :fracciones_totales, :cantidad_billetes, :premios, :billetes, :estado]}
+  defstruct [
+    id: nil,                  # Un identificador único (ej: "SOR-101")
+    nombre: "",               # Nombre del sorteo
+    fecha: nil,               # Fecha programada [cite: 28]
+    precio_billete: 0,        # Valor del billete completo
+    fracciones_totales: 0,    # Cantidad de fracciones por billete [cite: 30]
+    cantidad_billetes: 0,     # Cuántos billetes existen (con número único) [cite: 31]
+    premios: [],              # Lista de premios asociados [cite: 34, 60]
+    billetes: %{},            # Mapa para rastrear quién compró qué número
+    estado: :pendiente        # :pendiente, :realizado o :cancelado [cite: 35]
+  ]
 
-  defstruct id: nil,
-            nombre: "",
-            fecha: nil,
-            precio_billete: 0,
-            fracciones_totales: 0,
-            cantidad_billetes: 0,
-            premios: [],
-            billetes: %{},
-            estado: :pendiente,
-            ganadores: [],
-            ingresos_totales: 0
+  @premios ["1er puesto", "2do puesto", "3er puesto"]
 
   @doc """
-  Crea una nueva instancia de sorteo e inicializa todos los billetes disponibles.
+  Recibe una lista de jugadores limpia y retorna los ganadores con su premio.
+  Si hay menos jugadores que premios, asigna un premio por jugador disponible.
   """
-  def nueva_instancia(attrs \\ %{}) do
-    # Fusionamos los atributos recibidos con el molde del struct
-    sorteo = struct(__MODULE__, attrs)
-
-    # Generamos los billetes automáticamente (ej: del 1 al 100)
-    billetes_generados =
-      for n <- 1..sorteo.cantidad_billetes, into: %{} do
-        # Formateamos el número a 3 dígitos (ej: 1 -> "001")
-        numero_str = n |> Integer.to_string() |> String.pad_leading(3, "0")
-
-        {numero_str,
-         %{
-           numero: numero_str,
-           fracciones_disponibles: sorteo.fracciones_totales,
-           compradores: []
-         }}
-      end
-
-    # Retornamos el sorteo con su ID único y sus billetes listos
-    %{sorteo | billetes: billetes_generados, id: :rand.uniform(999_999)}
+  def sortear(jugadores) when is_list(jugadores) do
+    jugadores
+    |> Enum.shuffle()
+    |> Enum.take(min(length(jugadores), length(@premios)))
+    |> Enum.with_index()
+    |> Enum.map(fn {jugador, indice} ->
+      %{
+        nombre: obtener_nombre(jugador),
+        premio: Enum.at(@premios, indice)
+      }
+    end)
   end
 
-  @doc """
-  Algoritmo aleatorio para seleccionar números ganadores y cerrar el sorteo.
-  """
-  def seleccionar_ganadores(sorteo) do
-    # 1. Obtenemos todos los números de billetes que existen
-    numeros_disponibles = Map.keys(sorteo.billetes)
-
-    # 2. Seleccionamos números al azar según la cantidad de premios
-    cantidad_premios = Enum.count(sorteo.premios)
-    numeros_premiados = Enum.take_random(numeros_disponibles, cantidad_premios)
-
-    # 3. Emparejamos cada premio con un número ganador
-    resultados =
-      Enum.zip(sorteo.premios, numeros_premiados)
-      |> Enum.map(fn {premio, numero} ->
-        %{
-          "premio" => premio.nombre,
-          "valor" => premio.valor,
-          "numero_ganador" => numero
-        }
-      end)
-
-    # 4. Actualizamos el estado del sorteo
-    %{sorteo | ganadores: resultados, estado: :realizado}
-  end
+  defp obtener_nombre(%{nombre: nombre}) when is_binary(nombre), do: nombre
+  defp obtener_nombre(nombre) when is_binary(nombre), do: nombre
+  defp obtener_nombre(_), do: "Desconocido"
 end
