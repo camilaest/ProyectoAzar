@@ -19,7 +19,8 @@ defmodule ProyectoAzar.MixProject do
 
   defp deps do
     [
-      {:jason, "~> 1.4"}
+      {:jason, "~> 1.0"},
+      {:tzdata, "~> 1.1"}
     ]
   end
 end
