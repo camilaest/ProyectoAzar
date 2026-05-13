@@ -1,49 +1,84 @@
 defmodule Azar.SorteoServer do
   use GenServer
   alias Azar.Sorteo
-  alias Azar.Logger
 
-  # --- Interfaz (Lo que llaman los clientes) ---
+  @storage_dir "sorteos"
 
-  def start_link(%Azar.Sorteo{} = datos) do
-    # Iniciamos el proceso dándole un nombre único basado en su ID [cite: 18]
-    GenServer.start_link(__MODULE__, datos, name: {:global, datos.id})
+  # --- API Pública ---
+
+  def start_link(_) do
+    GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
-  def obtener_info(id_sorteo) do
-    GenServer.call({:global, id_sorteo}, :consultar)
+  def crear_sorteo(attrs) do
+    GenServer.call(__MODULE__, {:crear, attrs})
   end
 
-  # --- Servidor (Callbacks del GenServer) ---
+  def listar_sorteos do
+    GenServer.call(__MODULE__, :listar)
+  end
+
+  def finalizar_sorteo(id) do
+    GenServer.call(__MODULE__, {:finalizar, id})
+  end
 
   @impl true
-  def init(%Sorteo{} = sorteo) do
-    # Al arrancar, verificamos si ya existe un archivo JSON para este sorteo [cite: 19]
-    path = "sorteos/#{sorteo.id}.json"
+  def init(_) do
+    File.mkdir_p!(@storage_dir)
+    sorteos_cargados = cargar_desde_disco()
+    {:ok, sorteos_cargados}
+  end
 
-    estado_actual = case File.read(path) do
-      {:ok, contenido} ->
-        # Si existe, cargamos los datos del archivo
-        Jason.decode!(contenido, keys: :atoms)
-      {:error, _} ->
-        # Si no existe, usamos los datos nuevos y creamos el archivo
-        guardar_json(sorteo)
-        sorteo
+  @impl true
+  def handle_call({:crear, attrs}, _from, estado) do
+    nuevo_sorteo = Sorteo.nueva_instancia(attrs)
+    guardar_en_disco(nuevo_sorteo)
+    nuevo_estado = Map.put(estado, nuevo_sorteo.id, nuevo_sorteo)
+    {:reply, {:ok, nuevo_sorteo}, nuevo_estado}
+  end
+
+  @impl true
+  def handle_call(:listar, _from, estado) do
+    lista = Map.values(estado)
+    {:reply, lista, estado}
+  end
+
+  @impl true
+  def handle_call({:finalizar, id}, _from, estado) do
+    case Map.get(estado, id) do
+      nil ->
+        {:reply, {:error, "Sorteo no encontrado"}, estado}
+
+      sorteo ->
+        sorteo_finalizado = Sorteo.seleccionar_ganadores(sorteo)
+        guardar_en_disco(sorteo_finalizado)
+        nuevo_estado = Map.put(estado, id, sorteo_finalizado)
+        {:reply, {:ok, sorteo_finalizado}, nuevo_estado}
     end
-
-    {:ok, estado_actual}
   end
 
-  @impl true
-  def handle_call(:consultar, _from, estado) do
-    Logger.registrar("Consulta de datos sorteo: #{estado.nombre}", "ok") [cite: 22]
-    {:reply, estado, estado}
+  # --- Persistencia ---
+
+  defp guardar_en_disco(sorteo) do
+    path = Path.join(@storage_dir, "sorteo_#{sorteo.id}.json")
+    contenido = Jason.encode!(sorteo)
+    File.write!(path, contenido)
   end
 
-  # Función privada para persistir datos en JSON [cite: 19, 112]
-  defp guardar_json(estado) do
-    File.mkdir_p!("sorteos")
-    path = "sorteos/#{estado.id}.json"
-    File.write!(path, Jason.encode!(estado))
+  defp cargar_desde_disco do
+    if File.exists?(@storage_dir) do
+      @storage_dir
+      |> File.ls!()
+      |> Enum.filter(&String.ends_with?(&1, ".json"))
+      |> Enum.map(fn archivo ->
+        path = Path.join(@storage_dir, archivo)
+        # Cargamos el JSON y convertimos llaves a átomos para el struct
+        datos = path |> File.read!() |> Jason.decode!(keys: :atoms)
+        struct(Sorteo, datos)
+      end)
+      |> Enum.into(%{}, fn s -> {s.id, s} end)
+    else
+      %{}
+    end
   end
 end

@@ -1,6 +1,6 @@
 defmodule Azar.Sorteo do
   @moduledoc """
-  Define la estructura de datos para un sorteo de Azar S.A.
+  Define la estructura de datos y la lógica de negocio para los sorteos de Azar S.A.
   """
 
   @derive {Jason.Encoder, only: [:id, :nombre, :fecha, :precio_billete, :fracciones_totales, :cantidad_billetes, :premios, :billetes, :estado]}
