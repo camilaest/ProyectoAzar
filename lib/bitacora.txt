@@ -1,1 +1,13 @@
 2026-04-21 15:04:10.156000Z - Solicitud: Misión cumplida - Resultado: Camila arregló todo
+2026-05-13 06:08:35.234000Z - Solicitud: Crear sorteo - Resultado: OK - ID: 599088
+2026-05-13 06:09:42.528000Z - Solicitud: Finalizar sorteo 599088 - Resultado: OK - Ganadores asignados
+2026-05-13 06:19:41.287000Z - Solicitud: Crear sorteo - Resultado: OK - ID: 851233
+2026-05-13 06:22:07.524000Z - Solicitud: Compra fracción - Jugador: 12345 - Sorteo: 851233 - Billete: 002 - Resultado: OK - Apuesta ID: 550b0ff2
+2026-05-13 06:24:18.918000Z - Solicitud: Finalizar sorteo 851233 - Resultado: OK - Ganadores asignados
+2026-05-13 06:33:00.996000Z - Solicitud: Crear sorteo - Resultado: OK - ID: 412816
+2026-05-13 06:34:46.468000Z - Solicitud: Compra fracción - Jugador: 12345 - Sorteo: 412816 - Billete: 003 - Resultado: OK - Apuesta ID: 141cd440
+2026-05-13 06:35:16.339000Z - Solicitud: Finalizar sorteo 412816 - Resultado: OK - Ganadores asignados
+2026-05-13 06:37:44.421000Z - Solicitud: Crear sorteo - Resultado: OK - ID: 372920
+2026-05-13 06:37:44.512000Z - Solicitud: Compra fracción - Jugador: jugador_1 - Sorteo: 372920 - Billete: 001 - Resultado: OK - Apuesta ID: f5bbc08b
+2026-05-13 06:37:44.541000Z - Solicitud: Compra fracción - Jugador: jugador_2 - Sorteo: 372920 - Billete: 001 - Resultado: OK - Apuesta ID: c1069b49
+2026-05-13 06:37:44.561000Z - Solicitud: Compra fracción - Jugador: jugador_3 - Sorteo: 372920 - Billete: 001 - Resultado: OK - Apuesta ID: 153c068d

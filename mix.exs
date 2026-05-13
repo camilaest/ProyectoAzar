@@ -12,10 +12,11 @@ defmodule ProyectoAzar.MixProject do
   end
 
   def application do
-    [
-      extra_applications: [:logger]
-    ]
-  end
+  [
+    extra_applications: [:logger],
+    mod: {ProyectoAzar.Application, []}
+  ]
+end
 
   defp deps do
     [

@@ -1,208 +1,134 @@
 defmodule Azar.Apuesta do
+  @moduledoc """
+  Módulo que define la estructura y la lógica de negocio para las apuestas.
+  Cada apuesta representa la compra de un billete completo o fracción de un sorteo.
 
-  @derive {Jason.Encoder, only: [
-    :id,
-    :jugador_id,
-    :sorteo_id,
-    :numero_billete,
-    :fracciones,
-    :monto,
-    :fecha
-  ]}
+  - fecha: Mayo del 2026
+  - Licencia: GNU GPL v3
+  """
+
+  @derive {Jason.Encoder, only: [:id, :jugador_id, :sorteo_id, :numero_billete, :fracciones, :monto, :fecha, :estado]}
   defstruct [
-    id: nil,             # Identificador único de la apuesta (ej: "APU-001")
-    jugador_id: nil,     # Identificación del jugador comprador
-    sorteo_id: nil,      # ID del sorteo
+    id: nil,             # Identificador único de la apuesta
+    jugador_id: nil,     # Identificación del jugador que apuesta
+    sorteo_id: nil,      # ID del sorteo al que corresponde
     numero_billete: nil, # Número del billete comprado
-    fracciones: 0,       # Cantidad de fracciones compradas (igual a fracciones_totales = billete completo)
-    monto: 0.0,          # Monto total pagado
-    fecha: nil           # Fecha y hora de la compra
+    fracciones: 1,       # Cantidad de fracciones compradas (1 = billete completo)
+    monto: 0,            # Valor pagado
+    fecha: nil,          # Fecha/hora de la compra
+    estado: :activa      # :activa | :devuelta
   ]
 
-  alias Azar.{Billete, Util}
+  @archivo_apuestas "apuestas.json"
 
-  def nueva(jugador_id, sorteo_id, numero_billete, fracciones, monto) do
+  # ===========================================================================
+  # API Pública
+  # ===========================================================================
+
+  @doc """
+  Crea una nueva apuesta con los atributos dados.
+
+  ## Parámetros
+    - attrs: mapa con jugador_id, sorteo_id, numero_billete, fracciones, monto
+
+  ## Ejemplo
+      iex> Azar.Apuesta.nueva(%{jugador_id: "123", sorteo_id: 1, numero_billete: "005", fracciones: 1, monto: 5000})
+  """
+  def nueva(attrs) do
     %__MODULE__{
       id: generar_id(),
-      jugador_id: jugador_id,
-      sorteo_id: sorteo_id,
-      numero_billete: numero_billete,
-      fracciones: fracciones,
-      monto: monto,
-      fecha: DateTime.utc_now() |> DateTime.to_string()
+      jugador_id: Map.fetch!(attrs, :jugador_id),
+      sorteo_id: Map.fetch!(attrs, :sorteo_id),
+      numero_billete: Map.fetch!(attrs, :numero_billete),
+      fracciones: Map.get(attrs, :fracciones, 1),
+      monto: Map.fetch!(attrs, :monto),
+      fecha: DateTime.utc_now() |> DateTime.to_string(),
+      estado: :activa
     }
   end
 
-#logica de compra
-  def comprar_completo(jugador_id, sorteo_id, numero_billete, precio_billete, estado_sorteo, billetes) do
-    with :ok <- validar_sorteo_pendiente(estado_sorteo),
-        {:ok, billete} <- buscar_billete(billetes, numero_billete),
-        :ok <- validar_billete_completo_disponible(billete) do
-
-      case Billete.comprar_fracciones(billete, jugador_id, billete.fracciones_disponibles, precio_billete / billete.fracciones_disponibles) do
-        {:ok, billete_actualizado} ->
-          apuesta = nueva(jugador_id, sorteo_id, numero_billete, billete_actualizado.fracciones_vendidas, precio_billete)
-          {:ok, apuesta, billete_actualizado}
-
-        {:error, motivo} ->
-          {:error, motivo}
-      end
-    end
-  end
-
-
-  def comprar_fracciones(jugador_id, sorteo_id, numero_billete, cantidad_fracciones, precio_fraccion, estado_sorteo, billetes) do
-    with :ok <- validar_sorteo_pendiente(estado_sorteo),
-        {:ok, billete} <- buscar_billete(billetes, numero_billete),
-        :ok <- validar_fracciones_disponibles(billete, cantidad_fracciones) do
-
-      case Billete.comprar_fracciones(billete, jugador_id, cantidad_fracciones, precio_fraccion) do
-        {:ok, billete_actualizado} ->
-          monto = precio_fraccion * cantidad_fracciones
-          apuesta = nueva(jugador_id, sorteo_id, numero_billete, cantidad_fracciones, monto)
-          {:ok, apuesta, billete_actualizado}
-
-        {:error, motivo} ->
-          {:error, motivo}
-      end
-    end
-  end
-
-
-  def devolver(%__MODULE__{} = apuesta, estado_sorteo, billetes) do
-    with :ok <- validar_sorteo_pendiente(estado_sorteo),
-        {:ok, billete} <- buscar_billete(billetes, apuesta.numero_billete) do
-      Billete.devolver_fracciones(billete, apuesta.jugador_id, apuesta.fracciones)
-    end
-  end
-
-
-#Retorna todas las apuestas de un jugador específico.
-
-  def historial_por_jugador(apuestas, jugador_id) do
-    apuestas
-    |> Enum.filter(fn a -> a.jugador_id == jugador_id end)
-  end
-
-
-  #Calcula el total gastado por un jugador en todas sus apuestas.
-
-  def total_gastado(apuestas, jugador_id) do
-    apuestas
-    |> historial_por_jugador(jugador_id)
-    |> Enum.reduce(0.0, fn a, acc -> acc + a.monto end)
-  end
-
   @doc """
-  Verifica si un jugador ganó en un sorteo dado los números ganadores.
-
-  Retorna lista de apuestas ganadoras (puede ser vacía).
+  Carga todas las apuestas desde el archivo JSON.
+  Devuelve una lista vacía si el archivo no existe.
   """
-  def verificar_premios(apuestas, jugador_id, sorteo_id, numeros_ganadores) do
-    apuestas
-    |> historial_por_jugador(jugador_id)
-    |> Enum.filter(fn a ->
-      a.sorteo_id == sorteo_id and a.numero_billete in numeros_ganadores
-    end)
-  end
-
-  @doc """
-  Retorna todas las apuestas de un sorteo específico.
-  """
-  def por_sorteo(apuestas, sorteo_id) do
-    apuestas
-    |> Enum.filter(fn a -> a.sorteo_id == sorteo_id end)
-  end
-
-  @doc """
-  Calcula los ingresos totales de un sorteo.
-  """
-  def ingresos_sorteo(apuestas, sorteo_id) do
-    apuestas
-    |> por_sorteo(sorteo_id)
-    |> Enum.reduce(0.0, fn a, acc -> acc + a.monto end)
-  end
-
-
-  @doc """
-  Guarda la lista de apuestas en apuestas.json
-  """
-  def guardar_json(apuestas, nombre_archivo \\ "apuestas.json") do
-    apuestas
-    |> Jason.encode!()
-    |> (&File.write!(nombre_archivo, &1)).()
-  end
-
-  @doc """
-  Carga las apuestas desde apuestas.json
-  Retorna lista vacía si el archivo no existe.
-  """
-  def cargar_json(nombre_archivo \\ "apuestas.json") do
-    case File.read(nombre_archivo) do
+  def cargar_apuestas(archivo \\ @archivo_apuestas) do
+    case File.read(archivo) do
       {:ok, contenido} ->
         contenido
         |> Jason.decode!()
-        |> Enum.map(&desde_mapa/1)
+        |> Enum.map(&convertir_a_struct/1)
 
       {:error, :enoent} ->
         []
     end
   end
 
+  @doc """
+  Guarda la lista completa de apuestas en el archivo JSON.
+  """
+  def guardar_apuestas(apuestas, archivo \\ @archivo_apuestas) do
+    apuestas
+    |> Enum.map(&Map.from_struct/1)
+    |> Jason.encode!(pretty: true)
+    |> (&File.write(archivo, &1)).()
+  end
 
   @doc """
-  Muestra en pantalla la información de una apuesta.
+  Devuelve todas las apuestas activas de un jugador específico.
   """
-  def mostrar(%__MODULE__{} = apuesta) do
-    "Apuesta #{apuesta.id} | Jugador: #{apuesta.jugador_id} | " <>
-    "Sorteo: #{apuesta.sorteo_id} | Billete ##{apuesta.numero_billete} | " <>
-    "Fracciones: #{apuesta.fracciones} | Monto: $#{apuesta.monto} | #{apuesta.fecha}"
-    |> Util.mostrar_mensaje()
+  def historial_jugador(jugador_id, archivo \\ @archivo_apuestas) do
+    cargar_apuestas(archivo)
+    |> Enum.filter(fn a -> a.jugador_id == jugador_id end)
   end
 
-#validaciones
+  @doc """
+  Calcula el total gastado por un jugador en apuestas activas.
+  """
+  def total_gastado(jugador_id, archivo \\ @archivo_apuestas) do
+    historial_jugador(jugador_id, archivo)
+    |> Enum.filter(fn a -> a.estado == :activa end)
+    |> Enum.reduce(0, fn a, acc -> acc + a.monto end)
+  end
 
-  defp validar_sorteo_pendiente(:pendiente), do: :ok
-  defp validar_sorteo_pendiente(:realizado), do: {:error, "El sorteo ya fue realizado"}
-  defp validar_sorteo_pendiente(:cancelado), do: {:error, "El sorteo está cancelado"}
+  @doc """
+  Marca una apuesta como devuelta (si el sorteo aún no se realizó).
+  Devuelve {:ok, apuesta_actualizada} o {:error, razon}.
+  """
+  def devolver(apuesta_id, archivo \\ @archivo_apuestas) do
+    apuestas = cargar_apuestas(archivo)
 
-  defp buscar_billete(billetes, numero_billete) do
-    case Enum.find(billetes, fn b -> b.numero == numero_billete end) do
-      nil     -> {:error, "El billete ##{numero_billete} no existe en este sorteo"}
-      billete -> {:ok, billete}
+    case Enum.find(apuestas, fn a -> a.id == apuesta_id end) do
+      nil ->
+        {:error, "Apuesta no encontrada"}
+
+      %{estado: :devuelta} ->
+        {:error, "La apuesta ya fue devuelta"}
+
+      apuesta ->
+        actualizada = %{apuesta | estado: :devuelta}
+        nueva_lista = Enum.map(apuestas, fn a ->
+          if a.id == apuesta_id, do: actualizada, else: a
+        end)
+        guardar_apuestas(nueva_lista, archivo)
+        {:ok, actualizada}
     end
   end
 
-  defp validar_billete_completo_disponible(billete) do
-    case Billete.disponible_completo?(billete) do
-      true  -> :ok
-      false -> {:error, "El billete ##{billete.numero} ya tiene fracciones vendidas"}
-    end
-  end
-
-  defp validar_fracciones_disponibles(billete, cantidad) do
-    case Billete.fracciones_disponibles?(billete, cantidad) do
-      true  -> :ok
-      false -> {:error, "Solo hay #{billete.fracciones_disponibles} fracciones disponibles en el billete ##{billete.numero}"}
-    end
-  end
-
-  
-  defp desde_mapa(mapa) do
-    %__MODULE__{
-      id: mapa["id"],
-      jugador_id: mapa["jugador_id"],
-      sorteo_id: mapa["sorteo_id"],
-      numero_billete: mapa["numero_billete"],
-      fracciones: mapa["fracciones"],
-      monto: mapa["monto"],
-      fecha: mapa["fecha"]
-    }
-  end
+  # ===========================================================================
+  # Funciones privadas
+  # ===========================================================================
 
   defp generar_id do
-    :crypto.strong_rand_bytes(4)
-    |> Base.encode16()
-    |> (&"APU-#{&1}").()
+    :crypto.strong_rand_bytes(4) |> Base.encode16() |> String.downcase()
+  end
+
+  defp convertir_a_struct(mapa) do
+    atomizado = for {k, v} <- mapa, into: %{}, do: {String.to_atom(k), v}
+    estado = case atomizado[:estado] do
+      "activa"   -> :activa
+      "devuelta" -> :devuelta
+      otro       -> String.to_atom(to_string(otro))
+    end
+    struct(__MODULE__, %{atomizado | estado: estado})
   end
 end
