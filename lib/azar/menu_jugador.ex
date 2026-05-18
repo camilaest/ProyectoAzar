@@ -1,4 +1,13 @@
 defmodule Azar.MenuJugador do
+  @moduledoc """
+  Menú interactivo para el jugador del sistema Azar S.A.
+  Permite registrarse, iniciar sesión, ver sorteos, comprar billetes/fracciones,
+  consultar historial de apuestas y verificar premios ganados.
+  """
+
+  # ===========================================================================
+  # Menú principal del jugador (antes de iniciar sesión)
+  # ===========================================================================
 
   def menu_jugador do
     IO.puts("""
@@ -45,6 +54,7 @@ defmodule Azar.MenuJugador do
   end
 
   # Menú que aparece DESPUÉS de iniciar sesión
+
   def menu_sesion(jugador) do
     IO.puts("""
 
@@ -98,9 +108,7 @@ defmodule Azar.MenuJugador do
     end
   end
 
-  # =========================
   # REGISTRARSE
-  # =========================
 
   defp registrarse do
     IO.puts("\n===== REGISTRO DE JUGADOR =====\n")
@@ -119,9 +127,7 @@ defmodule Azar.MenuJugador do
     end
   end
 
-  # =========================
   # INICIAR SESIÓN
-  # =========================
 
   defp iniciar_sesion do
     IO.puts("\n===== INICIAR SESIÓN =====\n")
@@ -145,9 +151,7 @@ defmodule Azar.MenuJugador do
     end
   end
 
-  # =========================
-  # VER SORTEOS
-  # =========================
+  # VER SORTEOS DISPONIBLES
 
   defp ver_sorteos do
     IO.puts("\n===== SORTEOS DISPONIBLES =====\n")
@@ -162,9 +166,7 @@ defmodule Azar.MenuJugador do
     end
   end
 
-  # =========================
-  # COMPRAR BILLETE
-  # =========================
+  # COMPRAR BILLETE / FRACCIÓN
 
   defp comprar_billete(jugador) do
     IO.puts("\n===== COMPRAR BILLETE/FRACCIÓN =====\n")
@@ -179,36 +181,43 @@ defmodule Azar.MenuJugador do
       end)
 
       sorteo_id =
-        IO.gets("\nIngrese el ID del sorteo: ")
-        |> String.trim()
-        |> String.to_integer()
+        case IO.gets("\nIngrese el ID del sorteo: ") |> String.trim() |> Integer.parse() do
+          {n, _} -> n
+          :error ->
+            IO.puts("\n❌ ID de sorteo inválido.")
+            nil
+        end
+
+      cantidad =
+        case IO.gets("Cantidad de fracciones a comprar: ") |> String.trim() |> Integer.parse() do
+          {n, _} when n > 0 -> n
+          _ ->
+            IO.puts("\n❌ Cantidad de fracciones inválida.")
+            nil
+        end
 
       numero =
         IO.gets("Ingrese el número de billete (ej: 001): ")
         |> String.trim()
 
-      cantidad =
-        IO.gets("Cantidad de fracciones a comprar: ")
-        |> String.trim()
-        |> String.to_integer()
+      # Solo proceder si ambos valores se parsearon correctamente
+      if sorteo_id != nil and cantidad != nil and numero != "" do
+        case Azar.SorteoServer.comprar_fraccion(sorteo_id, numero, jugador.identificacion, cantidad) do
+          {:ok, apuesta} ->
+            IO.puts("\n✅ ¡Compra exitosa!")
+            IO.puts("   Apuesta ID : #{apuesta.id}")
+            IO.puts("   Billete    : #{apuesta.numero_billete}")
+            IO.puts("   Fracciones : #{apuesta.fracciones}")
+            IO.puts("   Monto      : $#{apuesta.monto}")
 
-      case Azar.SorteoServer.comprar_fraccion(sorteo_id, numero, jugador.identificacion, cantidad) do
-        {:ok, apuesta} ->
-          IO.puts("\n✅ ¡Compra exitosa!")
-          IO.puts("   Apuesta ID : #{apuesta.id}")
-          IO.puts("   Billete    : #{apuesta.numero_billete}")
-          IO.puts("   Fracciones : #{apuesta.fracciones}")
-          IO.puts("   Monto      : $#{apuesta.monto}")
-
-        {:error, razon} ->
-          IO.puts("\n❌ No se pudo completar la compra: #{razon}")
+          {:error, razon} ->
+            IO.puts("\n❌ No se pudo completar la compra: #{razon}")
+        end
       end
     end
   end
 
-  # =========================
   # HISTORIAL DE APUESTAS
-  # =========================
 
   defp ver_historial(jugador) do
     IO.puts("\n===== MI HISTORIAL DE APUESTAS =====\n")
@@ -226,9 +235,7 @@ defmodule Azar.MenuJugador do
     end
   end
 
-  # =========================
   # PREMIOS GANADOS
-  # =========================
 
   defp ver_premios(jugador) do
     IO.puts("\n===== MIS PREMIOS GANADOS =====\n")
@@ -242,7 +249,7 @@ defmodule Azar.MenuJugador do
         case Azar.SorteoServer.consultar_sorteo(apuesta.sorteo_id) do
           {:ok, sorteo} ->
             case Azar.Sorteo.verificar_ganador(sorteo, apuesta.numero_billete) do
-              {:ganador, premio} -> [%{apuesta: apuesta, premio: premio}]
+              {:ganador, ganador} -> [%{apuesta: apuesta, ganador: ganador}]
               :no_ganador -> []
             end
           _ -> []
@@ -253,14 +260,15 @@ defmodule Azar.MenuJugador do
       IO.puts("No tienes premios ganados aún.")
     else
       Enum.each(premios, fn p ->
-        IO.puts("🏆 Billete #{p.apuesta.numero_billete} → #{p.premio.premio} | $#{p.premio.valor}")
+        # Corrección: acceso seguro con Map.get/3, compatible con claves átomo y string
+        nombre_premio = Map.get(p.ganador, :premio, Map.get(p.ganador, "premio", "?"))
+        valor_premio  = Map.get(p.ganador, :valor,  Map.get(p.ganador, "valor",  0))
+        IO.puts("🏆 Billete #{p.apuesta.numero_billete} → #{nombre_premio} | $#{valor_premio}")
       end)
     end
   end
 
-  # =========================
   # PAUSA
-  # =========================
 
   defp pausa do
     IO.gets("\nPresione ENTER para continuar...")
