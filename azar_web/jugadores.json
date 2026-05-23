@@ -1,26 +1,34 @@
 [
   {
-    "identificacion": "2345",
-    "saldo": 0.0,
     "nombre": "Santy",
+    "identificacion": "2345",
     "contrasena": "",
-    "tarjetaCredito": "44444",
-    "premios_ganados": []
-  },
-  {
-    "identificacion": "1029",
     "saldo": 0.0,
-    "nombre": "maria",
-    "contrasena": "1234",
-    "tarjetaCredito": "1234567891234",
-    "premios_ganados": []
+    "premios_ganados": [],
+    "tarjetaCredito": "44444"
   },
   {
-    "identificacion": "1096033880",
-    "saldo": 1.75e4,
-    "nombre": "Maria ",
+    "nombre": "maria",
+    "identificacion": "1029",
     "contrasena": "1234",
-    "tarjetaCredito": "30004567657678",
-    "premios_ganados": []
+    "saldo": 0.0,
+    "premios_ganados": [],
+    "tarjetaCredito": "1234567891234"
+  },
+  {
+    "nombre": "Maria ",
+    "identificacion": "1096033880",
+    "contrasena": "1234",
+    "saldo": 1.75e4,
+    "premios_ganados": [],
+    "tarjetaCredito": "30004567657678"
+  },
+  {
+    "nombre": "claudia",
+    "identificacion": "41871730",
+    "contrasena": "tutu11111111",
+    "saldo": 0.0,
+    "premios_ganados": [],
+    "tarjetaCredito": "11223344556677"
   }
 ]

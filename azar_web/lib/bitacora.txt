@@ -7,3 +7,5 @@
 [INFO] 2026-05-14 01:08:55.402000Z - Solicitud: Registrar apuesta - Resultado: Apuesta 848799 - Jugador 1096033880 - Sorteo 29069 - Billete 021
 [INFO] 2026-05-14 01:09:20.016000Z - Solicitud: Cerrar sorteo - Resultado: Sorteo 'rifa' cerrado con ganadores
 [INFO] 2026-05-14 01:15:38.353000Z - Solicitud: Inicio de sesión - Resultado: Exitoso - Jugador: Maria 
+[INFO] 2026-05-23 21:17:13.834000Z - Solicitud: Inicio de sesión - Resultado: Fallido - Contraseña incorrecta para: 1096033880
+[INFO] 2026-05-23 21:18:23.914000Z - Solicitud: Registro de jugador - Resultado: Jugador 'claudia' registrado exitosamente
