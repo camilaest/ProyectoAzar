@@ -1,1 +1,6 @@
 2026-04-21 15:04:10.156000Z - Solicitud: Misión cumplida - Resultado: Camila arregló todo
+[INFO] 2026-05-13 20:48:27.008000Z - Solicitud: Crear sorteo - Resultado: Sorteo 'Bolivia' creado con ID 88482
+[INFO] 2026-05-13 20:48:27.020000Z - Solicitud: Notificación - Resultado: Nuevo sorteo 'Bolivia' notificado a 0 jugadores
+[INFO] 2026-05-13 21:30:51.726000Z - Solicitud: Registro de jugador - Resultado: Jugador 'maria' registrado exitosamente
+[INFO] 2026-05-13 21:31:40.491000Z - Solicitud: Cerrar sesion - Resultado: Jugador maria
+[INFO] 2026-05-13 21:33:18.438000Z - Solicitud: Reporte de ventas - Resultado: Generado para sorteo 968823

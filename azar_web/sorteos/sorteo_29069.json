@@ -1,0 +1,631 @@
+{
+  "id": 29069,
+  "nombre": "rifa",
+  "fecha": null,
+  "precio_billete": 10000,
+  "fracciones_totales": 4,
+  "cantidad_billetes": 100,
+  "premios": [
+    {
+      "nombre": "Premio Mayor",
+      "valor": 400000
+    }
+  ],
+  "billetes": {
+    "034": {
+      "numero": "034",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "059": {
+      "numero": "059",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "030": {
+      "numero": "030",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "044": {
+      "numero": "044",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "003": {
+      "numero": "003",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "091": {
+      "numero": "091",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "037": {
+      "numero": "037",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "008": {
+      "numero": "008",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "094": {
+      "numero": "094",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "015": {
+      "numero": "015",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "079": {
+      "numero": "079",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "043": {
+      "numero": "043",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "039": {
+      "numero": "039",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "078": {
+      "numero": "078",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "069": {
+      "numero": "069",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "071": {
+      "numero": "071",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "081": {
+      "numero": "081",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "006": {
+      "numero": "006",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "018": {
+      "numero": "018",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "058": {
+      "numero": "058",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "050": {
+      "numero": "050",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "016": {
+      "numero": "016",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "001": {
+      "numero": "001",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "019": {
+      "numero": "019",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "064": {
+      "numero": "064",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "056": {
+      "numero": "056",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "004": {
+      "numero": "004",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "002": {
+      "numero": "002",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "005": {
+      "numero": "005",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "088": {
+      "numero": "088",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "090": {
+      "numero": "090",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "099": {
+      "numero": "099",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "070": {
+      "numero": "070",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "024": {
+      "numero": "024",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "010": {
+      "numero": "010",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "085": {
+      "numero": "085",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "097": {
+      "numero": "097",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "068": {
+      "numero": "068",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "026": {
+      "numero": "026",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "038": {
+      "numero": "038",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "020": {
+      "numero": "020",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "074": {
+      "numero": "074",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "060": {
+      "numero": "060",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "067": {
+      "numero": "067",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "096": {
+      "numero": "096",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "036": {
+      "numero": "036",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "046": {
+      "numero": "046",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "022": {
+      "numero": "022",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "035": {
+      "numero": "035",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "072": {
+      "numero": "072",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "029": {
+      "numero": "029",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "027": {
+      "numero": "027",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "040": {
+      "numero": "040",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "073": {
+      "numero": "073",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "093": {
+      "numero": "093",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "066": {
+      "numero": "066",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "033": {
+      "numero": "033",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "007": {
+      "numero": "007",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "080": {
+      "numero": "080",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "092": {
+      "numero": "092",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "011": {
+      "numero": "011",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "061": {
+      "numero": "061",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "052": {
+      "numero": "052",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "075": {
+      "numero": "075",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "009": {
+      "numero": "009",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "028": {
+      "numero": "028",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "014": {
+      "numero": "014",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "021": {
+      "numero": "021",
+      "fracciones_disponibles": 3,
+      "fracciones_vendidas": 1,
+      "compradores": [
+        {
+          "fracciones": 1,
+          "jugador_id": "1096033880"
+        }
+      ]
+    },
+    "041": {
+      "numero": "041",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "086": {
+      "numero": "086",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "057": {
+      "numero": "057",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "023": {
+      "numero": "023",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "042": {
+      "numero": "042",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "049": {
+      "numero": "049",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "055": {
+      "numero": "055",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "084": {
+      "numero": "084",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "063": {
+      "numero": "063",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "083": {
+      "numero": "083",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "089": {
+      "numero": "089",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "047": {
+      "numero": "047",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "095": {
+      "numero": "095",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "051": {
+      "numero": "051",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "054": {
+      "numero": "054",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "087": {
+      "numero": "087",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "032": {
+      "numero": "032",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "017": {
+      "numero": "017",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "076": {
+      "numero": "076",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "098": {
+      "numero": "098",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "082": {
+      "numero": "082",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "025": {
+      "numero": "025",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "048": {
+      "numero": "048",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "100": {
+      "numero": "100",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "012": {
+      "numero": "012",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "013": {
+      "numero": "013",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "062": {
+      "numero": "062",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "045": {
+      "numero": "045",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "077": {
+      "numero": "077",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "031": {
+      "numero": "031",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "065": {
+      "numero": "065",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    },
+    "053": {
+      "numero": "053",
+      "fracciones_disponibles": 4,
+      "fracciones_vendidas": 0,
+      "compradores": []
+    }
+  },
+  "estado": "realizado",
+  "ganadores": [
+    {
+      "compradores": [],
+      "numero_ganador": "036",
+      "premio": "Premio Mayor",
+      "valor": 400000
+    }
+  ],
+  "ingresos_totales": 2.5e3
+}

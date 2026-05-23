@@ -1,0 +1,9 @@
+[INFO] 2026-05-13 23:47:13.180000Z - Solicitud: Registro de jugador - Resultado: Jugador 'Maria ' registrado exitosamente
+[INFO] 2026-05-14 00:01:56.123000Z - Solicitud: Inicio de sesión - Resultado: Exitoso - Jugador: Maria 
+[INFO] 2026-05-14 00:58:30.367000Z - Solicitud: Inicio de sesión - Resultado: Exitoso - Jugador: Maria 
+[INFO] 2026-05-14 01:06:13.704000Z - Solicitud: Crear sorteo - Resultado: Sorteo 'rifa' creado con ID 29069
+[INFO] 2026-05-14 01:07:01.278000Z - Solicitud: Inicio de sesión - Resultado: Exitoso - Jugador: Maria 
+[INFO] 2026-05-14 01:08:55.395000Z - Solicitud: Compra de fracción - Resultado: Jugador 1096033880 compró 1 fracción(es) del billete 021 en sorteo 29069
+[INFO] 2026-05-14 01:08:55.402000Z - Solicitud: Registrar apuesta - Resultado: Apuesta 848799 - Jugador 1096033880 - Sorteo 29069 - Billete 021
+[INFO] 2026-05-14 01:09:20.016000Z - Solicitud: Cerrar sorteo - Resultado: Sorteo 'rifa' cerrado con ganadores
+[INFO] 2026-05-14 01:15:38.353000Z - Solicitud: Inicio de sesión - Resultado: Exitoso - Jugador: Maria 

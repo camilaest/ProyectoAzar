@@ -48,6 +48,7 @@ defmodule Azar.Sorteo do
          %{
            numero: numero_str,
            fracciones_disponibles: sorteo.fracciones_totales,
+           fracciones_vendidas: 0,
            compradores: []
          }}
       end
@@ -64,21 +65,48 @@ defmodule Azar.Sorteo do
     numeros_disponibles = Map.keys(sorteo.billetes)
 
     # 2. Seleccionamos números al azar según la cantidad de premios
-    cantidad_premios = Enum.count(sorteo.premios)
+    cantidad_premios = length(normalizar_premios(sorteo.premios))
     numeros_premiados = Enum.take_random(numeros_disponibles, cantidad_premios)
 
     # 3. Emparejamos cada premio con un número ganador
+    premios_norm = normalizar_premios(sorteo.premios)
+
     resultados =
-      Enum.zip(sorteo.premios, numeros_premiados)
+      Enum.zip(premios_norm, numeros_premiados)
       |> Enum.map(fn {premio, numero} ->
+        billete = Map.get(sorteo.billetes, numero, %{compradores: []})
+        compradores_billete = Map.get(billete, :compradores, [])
+
         %{
-          "premio" => premio.nombre,
-          "valor" => premio.valor,
-          "numero_ganador" => numero
+          "premio" => obtener_campo(premio, "nombre"),
+          "valor" => obtener_campo(premio, "valor"),
+          "numero_ganador" => numero,
+          "compradores" => compradores_billete
         }
       end)
 
     # 4. Actualizamos el estado del sorteo
     %{sorteo | ganadores: resultados, estado: :realizado}
   end
+
+  @doc "Calcula el precio de una fracción individual."
+  def precio_fraccion(sorteo) do
+    if sorteo.fracciones_totales > 0 do
+      sorteo.precio_billete / sorteo.fracciones_totales
+    else
+      sorteo.precio_billete
+    end
+  end
+
+  # ─── Helpers privados ───
+
+  # Los premios pueden venir como mapas con llaves string (de JSON) o atom
+  defp normalizar_premios(premios) when is_list(premios), do: premios
+  defp normalizar_premios(_), do: []
+
+  defp obtener_campo(mapa, campo) when is_map(mapa) do
+    Map.get(mapa, campo) || Map.get(mapa, String.to_atom(campo))
+  end
+
+  defp obtener_campo(_, _), do: nil
 end

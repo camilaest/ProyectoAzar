@@ -1,1 +1,18 @@
-[{"contraseña":"2023","identificacion":"2345","nombre":"Santy","tarjetaCredito":"44444"}]
+[
+  {
+    "nombre": "Santy",
+    "identificacion": "2345",
+    "contrasena": "",
+    "tarjetaCredito": "44444",
+    "saldo": 0.0,
+    "premios_ganados": []
+  },
+  {
+    "nombre": "maria",
+    "identificacion": "1029",
+    "contrasena": "1234",
+    "tarjetaCredito": "1234567891234",
+    "saldo": 0.0,
+    "premios_ganados": []
+  }
+]

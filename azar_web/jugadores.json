@@ -1,0 +1,26 @@
+[
+  {
+    "identificacion": "2345",
+    "saldo": 0.0,
+    "nombre": "Santy",
+    "contrasena": "",
+    "tarjetaCredito": "44444",
+    "premios_ganados": []
+  },
+  {
+    "identificacion": "1029",
+    "saldo": 0.0,
+    "nombre": "maria",
+    "contrasena": "1234",
+    "tarjetaCredito": "1234567891234",
+    "premios_ganados": []
+  },
+  {
+    "identificacion": "1096033880",
+    "saldo": 1.75e4,
+    "nombre": "Maria ",
+    "contrasena": "1234",
+    "tarjetaCredito": "30004567657678",
+    "premios_ganados": []
+  }
+]

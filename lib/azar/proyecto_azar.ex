@@ -1,18 +1,30 @@
 defmodule ProyectoAzar do
   @moduledoc """
-  Documentation for `ProyectoAzar`.
+  Módulo raíz del proyecto Azar S.A.
+  Punto de entrada principal de la aplicación.
   """
 
-  @doc """
-  Hello world.
+  @doc "Inicia la aplicación completa con menú interactivo."
+  def iniciar do
+    Estructura.main()
+  end
 
-  ## Examples
+  @doc "Inicia solo el servidor (para modo distribuido)."
+  def iniciar_servidor do
+    Azar.Servidor.iniciar()
+  end
 
-      iex> ProyectoAzar.hello()
-      :world
+  @doc "Inicia como nodo servidor distribuido."
+  def iniciar_nodo_servidor(nombre \\ "servidor") do
+    Azar.Servidor.iniciar_nodo(nombre)
+  end
 
-  """
-  def hello do
-    :world
+  @doc "Inicia como nodo cliente y conecta al servidor."
+  def iniciar_nodo_cliente(nombre \\ "cliente1", servidor \\ nil) do
+    Azar.Cliente.iniciar_nodo(nombre)
+
+    if servidor do
+      Azar.Cliente.conectar(servidor)
+    end
   end
 end
